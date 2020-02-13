@@ -1,0 +1,18 @@
+import Foundation
+
+public struct BundleId: Hashable, Equatable, Codable, Identifiable {
+  public var rawValue: String
+  public var id: String { rawValue }
+
+  public init(_ rawValue: String) {
+    self.rawValue = rawValue
+  }
+}
+
+extension BundleId: CustomStringConvertible {
+  public var description: String { rawValue }
+}
+
+extension BundleId: ShellArgumentConvertible {
+  var shellArgument: String { rawValue }
+}
