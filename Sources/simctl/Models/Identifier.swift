@@ -18,3 +18,7 @@ extension Identifier: Codable where Value.ID: Codable {
     try container.encode(rawValue)
   }
 }
+
+extension Identifier: ShellArgumentConvertible where Value.ID == String {
+  public var shellArgument: String { rawValue }
+}

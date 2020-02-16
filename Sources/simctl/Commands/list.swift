@@ -58,7 +58,7 @@ public extension Simctl {
   }
 
   /// List available devices
-  /// - Command docs: `xcrun simctl list --help`
+  /// - Command docs: `xcrun simctl list`
   static func listDevices(searchTerm: List.SearchTerm? = nil) throws -> [Identifier<Runtime>: [Device]] {
     struct Result: Codable {
       public let devices: [String: [Device]]

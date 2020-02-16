@@ -2,7 +2,7 @@ import Foundation
 
 public extension Simctl {
   /// Send a simulated push notification.
-  /// - Command docs: `xcrun simctl push --help`
+  /// - Command docs: `xcrun simctl push`
   /// - Returns: Command raw output.
   static func push(device: Device, bundleId: BundleId?, file: Simctl.File) throws -> String {
     var arguments: [ShellArgumentConvertible] = ["push"]
@@ -18,8 +18,7 @@ public extension Simctl {
     switch file {
     case .string(let pushString):
       arguments.append("-")
-      pipe.fileHandleForWriting.write(Data(pushString.utf8))
-      pipe.fileHandleForWriting.closeFile()
+      pipe.writeAndClose(pushString)
     case .path(let fileUrl):
       precondition(fileUrl.isFileURL)
       arguments.append(fileUrl.path)

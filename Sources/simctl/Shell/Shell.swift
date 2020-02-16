@@ -16,12 +16,16 @@ internal enum Shell {
     }
   }
 
-  static func run(command: String,
-                  arguments: [ShellArgumentConvertible],
-                  input: Any? = nil) throws -> String {
+  static func run(
+    command: String,
+    arguments: [ShellArgumentConvertible],
+    input: Any? = nil,
+    environmentVariables: [String: String]? = nil
+  ) throws -> String {
     let task = Process()
     task.launchPath = command
     task.arguments = arguments.map { $0.shellArgument }
+    task.environment = environmentVariables
 
     let outputPipe = Pipe()
     let errorPipe = Pipe()
@@ -41,16 +45,22 @@ internal enum Shell {
     return String(data: data, encoding: .utf8) ?? ""
   }
 
-  static func simctl(_ arguments: [ShellArgumentConvertible],
-                     inputHandler: Any? = nil) throws -> String {
+  static func simctl(
+    _ arguments: [ShellArgumentConvertible],
+    inputHandler: Any? = nil,
+    environmentVariables: [String: String]? = nil
+  ) throws -> String {
     let arguments: [ShellArgumentConvertible] = ["simctl"] + arguments
     return try run(command: "/usr/bin/xcrun",
                    arguments: arguments,
                    input: inputHandler)
   }
 
-  static func simctl<Value: Decodable>(_ arguments: [ShellArgumentConvertible],
-                                       inputHandler: Any? = nil) throws -> Value {
+  static func simctl<Value: Decodable>(
+    _ arguments: [ShellArgumentConvertible],
+    inputHandler: Any? = nil,
+    environmentVariables: [String: String]? = nil
+  ) throws -> Value {
     let output = try simctl(arguments, inputHandler: inputHandler)
     let decoder = JSONDecoder()
     return try decoder.decode(Value.self, from: Data(output.utf8))
