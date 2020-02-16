@@ -3,22 +3,28 @@
 import PackageDescription
 
 let package = Package(
-    name: "simctl",
-    platforms: [
-      .macOS(.v10_15),
+  name: "simctl",
+  platforms: [
+    .macOS(.v10_15),
   ],
-    products: [
-        .library(
-            name: "simctl",
-            targets: ["simctl"]),
-    ],
-    dependencies: [
+  products: [
+    .library(
+      name: "simctl",
+      targets: ["simctl"]
+    ),
+  ],
+  dependencies: [
 
-    ],
-    targets: [
-        .target(
-            name: "simctl",
-            dependencies: []),
-    ],
-    swiftLanguageVersions: [.v5]
+  ],
+  targets: [
+    .target(
+      name: "simctl",
+      dependencies: []
+    ),
+    .testTarget(
+      name: "SimctlTests",
+      dependencies: ["simctl"]
+    ),
+  ],
+  swiftLanguageVersions: [.v5]
 )

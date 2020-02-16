@@ -2,14 +2,27 @@ import Foundation
 
 public extension Simctl {
   struct Device: Codable {
-    public let udid: String
+    public let name: String
+    public let deviceTypeIdentifier: Identifier<Devicetype>
 
-    public init(udid: String) {
-      self.udid = udid
-    }
+    @FilePath
+    public var dataPath: URL
+
+    @FilePath
+    public var logPath: URL
+
+    public let udid: Identifier<Device>
+
+    public let isAvailable: Bool
+
+    public let state: String
   }
 }
 
 extension Simctl.Device: ShellArgumentConvertible {
-  var shellArgument: String { udid }
+  var shellArgument: String { udid.rawValue }
+}
+
+extension Simctl.Device: Identifiable {
+  public var id: String { udid.rawValue }
 }

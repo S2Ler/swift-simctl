@@ -42,11 +42,18 @@ internal enum Shell {
   }
 
   static func simctl(_ arguments: [ShellArgumentConvertible],
-                     input: Any? = nil) throws -> String {
+                     inputHandler: Any? = nil) throws -> String {
     let arguments: [ShellArgumentConvertible] = ["simctl"] + arguments
     return try run(command: "/usr/bin/xcrun",
                    arguments: arguments,
-                   input: input)
+                   input: inputHandler)
+  }
+
+  static func simctl<Value: Decodable>(_ arguments: [ShellArgumentConvertible],
+                                       inputHandler: Any? = nil) throws -> Value {
+    let output = try simctl(arguments, inputHandler: inputHandler)
+    let decoder = JSONDecoder()
+    return try decoder.decode(Value.self, from: Data(output.utf8))
   }
 }
 
