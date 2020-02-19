@@ -45,6 +45,7 @@ internal enum Shell {
     return String(data: data, encoding: .utf8) ?? ""
   }
 
+  @discardableResult
   static func simctl(
     _ arguments: [ShellArgumentConvertible],
     inputHandler: Any? = nil,
