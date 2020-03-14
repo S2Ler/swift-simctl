@@ -3,7 +3,7 @@ import Foundation
 public extension Simctl {
   enum DeviceParameter {
     case booted
-    case udid(Identifier<Simctl.Device>)
+    case udid(SimctlIdentifier<Simctl.Device>)
     case device(Simctl.Device)
   }
 }

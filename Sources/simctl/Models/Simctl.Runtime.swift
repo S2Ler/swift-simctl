@@ -2,7 +2,7 @@ import Foundation
 
 public extension Simctl {
   struct Runtime: Codable {
-    public let identifier: Identifier<Runtime>
+    public let identifier: SimctlIdentifier<Runtime>
 
     @FilePath
     public var bundlePath: URL

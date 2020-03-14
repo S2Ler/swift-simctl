@@ -3,7 +3,7 @@ import Foundation
 public extension Simctl {
   struct Device: Codable {
     public let name: String
-    public let deviceTypeIdentifier: Identifier<Devicetype>
+    public let deviceTypeIdentifier: SimctlIdentifier<Devicetype>
 
     @FilePath
     public var dataPath: URL
@@ -11,7 +11,7 @@ public extension Simctl {
     @FilePath
     public var logPath: URL
 
-    public let udid: Identifier<Device>
+    public let udid: SimctlIdentifier<Device>
 
     public let isAvailable: Bool
 

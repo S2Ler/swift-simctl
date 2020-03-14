@@ -14,13 +14,13 @@ public extension Simctl {
     public struct Result: Codable {
       public let runtimes: [Runtime]
       public let devicetypes: [Devicetype]
-      public let devices: [Identifier<Runtime>: [Device]]
+      public let devices: [SimctlIdentifier<Runtime>: [Device]]
 
       fileprivate init(_ result: _Result) {
         self.runtimes = result.runtimes
         self.devicetypes = result.devicetypes
 
-        var fixedDevices: [Identifier<Runtime>: [Device]] = [:]
+        var fixedDevices: [SimctlIdentifier<Runtime>: [Device]] = [:]
         for (runtimeId, devices) in result.devices {
           fixedDevices[Identifier(rawValue: runtimeId)] = devices
         }
@@ -59,16 +59,16 @@ public extension Simctl {
 
   /// List available devices
   /// - Command docs: `xcrun simctl list`
-  static func listDevices(searchTerm: List.SearchTerm? = nil) throws -> [Identifier<Runtime>: [Device]] {
+  static func listDevices(searchTerm: List.SearchTerm? = nil) throws -> [SimctlIdentifier<Runtime>: [Device]] {
     struct Result: Codable {
       public let devices: [String: [Device]]
     }
     let result = (try list(filter: .devices, searchTerm: searchTerm) as Result)
 
     // See Simctl.List._Result why it is needed
-    var fixedDevices: [Identifier<Runtime>: [Device]] = [:]
+    var fixedDevices: [SimctlIdentifier<Runtime>: [Device]] = [:]
     for (runtimeId, devices) in result.devices {
-      fixedDevices[Identifier<Runtime>(rawValue: runtimeId)] = devices
+      fixedDevices[SimctlIdentifier<Runtime>(rawValue: runtimeId)] = devices
     }
     return fixedDevices
   }
