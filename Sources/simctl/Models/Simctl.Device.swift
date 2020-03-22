@@ -26,3 +26,13 @@ extension Simctl.Device: ShellArgumentConvertible {
 extension Simctl.Device: Identifiable {
   public var id: String { udid.rawValue }
 }
+
+extension Simctl.Device: Hashable {
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
+  }
+
+  public static func ==(lhs: Simctl.Device, rhs: Simctl.Device) -> Bool {
+    lhs.id == rhs.id
+  }
+}
