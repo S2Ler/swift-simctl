@@ -1,7 +1,7 @@
 import Foundation
 
 public extension Simctl {
-  struct Device: Codable {
+  struct Device: Codable, Equatable {
     public let name: String
     public let deviceTypeIdentifier: SimctlIdentifier<Devicetype>?
 
