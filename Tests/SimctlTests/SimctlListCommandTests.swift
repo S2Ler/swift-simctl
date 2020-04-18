@@ -1,5 +1,5 @@
 import XCTest
-import simctl
+import Simctl
 
 class SimctlListCommandTests: XCTestCase {
   func testResultIsDecodable() {
