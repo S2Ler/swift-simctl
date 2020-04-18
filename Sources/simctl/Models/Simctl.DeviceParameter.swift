@@ -13,7 +13,7 @@ extension Simctl.DeviceParameter: ShellArgumentConvertible {
     switch self {
     case .booted: return "booted"
     case .udid(let udid): return udid.rawValue
-    case .device(let device): return device.deviceTypeIdentifier?.rawValue ?? ""
+    case .device(let device): return device.udid.rawValue
     }
   }
 }
