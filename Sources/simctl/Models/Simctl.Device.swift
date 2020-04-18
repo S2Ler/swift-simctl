@@ -2,6 +2,39 @@ import Foundation
 
 public extension Simctl {
   struct Device: Codable, Equatable {
+    public enum State: String, Codable {
+      case unknown
+      case creating
+      case booting
+      case booted
+      case shuttingDown
+      case shutdown
+
+      public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(String.self)
+        switch rawValue {
+        case "Creating":
+          self = .creating
+        case "Booting":
+          self = .booting
+        case "Booted":
+          self = .booted
+        case "ShuttingDown":
+          self = .shuttingDown
+        case "Shutdown":
+          self = .shutdown
+        default:
+          self = .unknown
+        }
+      }
+
+      public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.rawValue)
+      }
+    }
+
     public let name: String
     public let deviceTypeIdentifier: SimctlIdentifier<Devicetype>?
 
@@ -15,7 +48,7 @@ public extension Simctl {
 
     public let isAvailable: Bool
 
-    public let state: String
+    public let state: State
   }
 }
 
