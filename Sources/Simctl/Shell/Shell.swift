@@ -71,3 +71,11 @@ internal enum Shell {
 extension String: ShellArgumentConvertible {
   var shellArgument: String { self }
 }
+
+extension Array: ShellArgumentConvertible where Element: ShellArgumentConvertible {
+  var shellArgument: String {
+    self
+      .map(\.shellArgument)
+      .joined(separator: " ")
+  }
+}
