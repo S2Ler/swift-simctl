@@ -14,16 +14,26 @@ let package = Package(
     ),
   ],
   dependencies: [
-
+    .package(url: "https://github.com/S2Ler/swift-shell.git", .branch("master")),
   ],
   targets: [
     .target(
       name: "Simctl",
-      dependencies: []
+      dependencies: [
+        .product(name: "Shell", package: "swift-shell"),
+      ],
+      swiftSettings: [.unsafeFlags([
+        "-Xfrontend", "-enable-experimental-concurrency",
+        "-Xfrontend", "-disable-availability-checking",
+      ])]
     ),
     .testTarget(
       name: "SimctlTests",
-      dependencies: ["Simctl"]
+      dependencies: ["Simctl"],
+      swiftSettings: [.unsafeFlags([
+        "-Xfrontend", "-enable-experimental-concurrency",
+        "-Xfrontend", "-disable-availability-checking",
+      ])]
     ),
   ],
   swiftLanguageVersions: [.v5]

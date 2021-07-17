@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public extension Simctl {
   enum DataNetwork: ShellArgumentConvertible {
@@ -9,7 +10,7 @@ public extension Simctl {
     case lteA
     case ltePlus
 
-    var shellArgument: String {
+    public var shellArgument: String {
       switch self {
       case .wifi:
         return "wifi"

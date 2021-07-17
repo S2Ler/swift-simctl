@@ -1,11 +1,12 @@
 import Foundation
+import Shell
 
-public extension Simctl {
-  enum ShutdownDeviceParameter: ShellArgumentConvertible {
+extension Simctl {
+  public enum ShutdownDeviceParameter: ShellArgumentConvertible {
     case all
     case deviceParam(Simctl.DeviceParameter)
 
-    var shellArgument: String {
+    public var shellArgument: String {
       switch self {
       case .all:
         return "all"
@@ -17,11 +18,11 @@ public extension Simctl {
 
   /// Shutdown device
   /// - Command docs: `xcrun simctl shutdown`
-  static func shutdown(
+  public static func shutdown(
     _ deviceParam: ShutdownDeviceParameter
-  ) throws {
+  ) async throws {
     let params: [ShellArgumentConvertible] = ["shutdown", deviceParam]
 
-    _ = try Shell.simctl(params)
+    _ = try await shell.simctl(params)
   }
 }

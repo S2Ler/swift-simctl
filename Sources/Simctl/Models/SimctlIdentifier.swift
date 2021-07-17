@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public typealias SimctlIdentifier<Value> = Identifier<Value, String>
 

@@ -1,10 +1,15 @@
 import Foundation
+import Shell
 
-public extension Simctl {
+extension Simctl {
   /// Send a simulated push notification.
   /// - Command docs: `xcrun simctl push`
   /// - Returns: Command raw output.
-  static func push(device: Device, bundleId: BundleId?, file: Simctl.File) throws -> String {
+  public static func push(
+    device: Device,
+    bundleId: BundleId?,
+    file: Simctl.File
+  ) async throws -> String {
     var arguments: [ShellArgumentConvertible] = ["push"]
 
     arguments.append(device)
@@ -24,6 +29,6 @@ public extension Simctl {
       arguments.append(fileUrl.path)
     }
 
-    return try Shell.simctl(arguments, inputHandler: pipe.fileHandleForReading)
+    return try await shell.simctl(arguments, input: .raw(pipe.fileHandleForReading))
   }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public struct BundleId: Hashable, Equatable, Codable, Identifiable {
   public var rawValue: String
@@ -14,5 +15,5 @@ extension BundleId: CustomStringConvertible {
 }
 
 extension BundleId: ShellArgumentConvertible {
-  var shellArgument: String { rawValue }
+  public var shellArgument: String { rawValue }
 }

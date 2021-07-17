@@ -1,7 +1,8 @@
 import Foundation
+import Shell
 
-public extension Simctl {
-  enum DeleteDeviceParameter: ShellArgumentConvertible {
+extension Simctl {
+  public enum DeleteDeviceParameter: ShellArgumentConvertible {
     /// Delete all devices
     case all
 
@@ -11,7 +12,7 @@ public extension Simctl {
     /// Delete specific device
     case deviceParam(Simctl.DeviceParameter)
 
-    var shellArgument: String {
+    public var shellArgument: String {
       switch self {
       case .all:
         return "all"
@@ -25,11 +26,11 @@ public extension Simctl {
 
   /// Delete spcified devices, unavailable devices, or all devices.
   /// - Command docs: `xcrun simctl delete`
-  static func delete(
+  public static func delete(
     _ deviceParam: DeleteDeviceParameter
-  ) throws {
+  ) async throws {
     let params: [ShellArgumentConvertible] = ["delete", deviceParam]
 
-    _ = try Shell.simctl(params)
+    _ = try await shell.simctl(params)
   }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public extension Simctl {
   /// Boot device
@@ -8,7 +9,7 @@ public extension Simctl {
     disabledJobs: [String] = [],
     enabledJobs: [String] = [],
     environmentVariables: [String: String]? = nil
-  ) throws {
+  ) async throws {
     func convertEnvironmentVariablesToBootedEnvironment(_ env: [String: String]) -> [String: String] {
       var result: [String: String] = [:]
       for (key, value) in env {
@@ -29,6 +30,6 @@ public extension Simctl {
 
     let environmentVariables = environmentVariables.map { convertEnvironmentVariablesToBootedEnvironment($0) }
 
-    _ = try Shell.simctl(params, environmentVariables: environmentVariables)
+    _ = try await shell.simctl(params, environmentVariables: environmentVariables)
   }
 }

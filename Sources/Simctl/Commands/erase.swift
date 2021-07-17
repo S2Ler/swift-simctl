@@ -1,11 +1,12 @@
 import Foundation
+import Shell
 
-public extension Simctl {
-  enum EraseDevicesParameter: ShellArgumentConvertible {
+extension Simctl {
+  public enum EraseDevicesParameter: ShellArgumentConvertible {
     case all
     case devices([Simctl.DeviceParameter])
 
-    var shellArgument: String {
+    public var shellArgument: String {
       switch self {
       case .all:
         return "all"
@@ -19,9 +20,9 @@ public extension Simctl {
 
   /// Erase a device's contents and settings.
   /// - Command docs: `xcrun simctl erase`
-  static func erase(_ devicesParam: Simctl.EraseDevicesParameter) throws  {
+  public static func erase(_ devicesParam: Simctl.EraseDevicesParameter) async throws  {
     let params: [ShellArgumentConvertible] = ["erase", devicesParam]
 
-    _ = try Shell.simctl(params)
+    _ = try await shell.simctl(params)
   }
 }

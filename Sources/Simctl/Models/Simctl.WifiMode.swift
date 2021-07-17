@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public extension Simctl {
   enum WiFiMode: ShellArgumentConvertible {
@@ -6,7 +7,7 @@ public extension Simctl {
     case failed
     case active
 
-    var shellArgument: String {
+    public var shellArgument: String {
       switch self {
       case .searching:
         return "searching"
