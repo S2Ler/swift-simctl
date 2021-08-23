@@ -1,9 +1,10 @@
 import Foundation
+import Shell
 
-public extension Simctl {
+extension Simctl {
   /// Returns pasteboard from device.
   /// - Command docs: `xcrun simctl list`
-  static func pbpaste(from deviceParam: DeviceParameter) throws -> String {
-    return try Shell.simctl(["pbpaste", deviceParam])
+  public static func pbpaste(from deviceParam: DeviceParameter) async throws -> String {
+    return try await shell.simctl(["pbpaste", deviceParam])
   }
 }

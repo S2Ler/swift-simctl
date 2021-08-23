@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public extension Simctl {
   enum DeviceParameter {
@@ -9,7 +10,7 @@ public extension Simctl {
 }
 
 extension Simctl.DeviceParameter: ShellArgumentConvertible {
-  var shellArgument: String {
+  public var shellArgument: String {
     switch self {
     case .booted: return "booted"
     case .udid(let udid): return udid.rawValue

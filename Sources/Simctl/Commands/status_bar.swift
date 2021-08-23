@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public extension Simctl {
   enum StatusBarOverride: ShellArgumentConvertible {
@@ -13,7 +14,7 @@ public extension Simctl {
     /// Clamped to 0 to 100 range.
     case batteryLevel(Int)
 
-    var shellArgument: String {
+    public var shellArgument: String {
       switch self {
       case .time(let time):
         return "--time \(time)"
@@ -42,21 +43,21 @@ public extension Simctl {
   //    preconditionFailure("Not suppo")
   //  }
   
-  func statusBarClear(_ deviceParam: DeviceParameter) throws {
+  func statusBarClear(_ deviceParam: DeviceParameter) async throws {
     let params: [ShellArgumentConvertible] = ["shutdown", "status_bar", deviceParam, "clear"]
 
-    _ = try Shell.simctl(params)
+    _ = try await shell.simctl(params)
   }
 
-  func statusBar(_ deviceParam: DeviceParameter, set overrides: [StatusBarOverride]) throws {
+  func statusBar(_ deviceParam: DeviceParameter, set overrides: [StatusBarOverride]) async throws {
     let params: [ShellArgumentConvertible] = [
       "shutdown",
       "status_bar",
       deviceParam,
       "override",
-      overrides
+      overrides as [ShellArgumentConvertible]
     ]
 
-    _ = try Shell.simctl(params)
+    _ = try await shell.simctl(params)
   }
 }

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "swift-shell",
+        "repositoryURL": "https://github.com/S2Ler/swift-shell.git",
+        "state": {
+          "branch": "master",
+          "revision": "a48225ef29c86c604ef3be471d7c06ae354c8fb3",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

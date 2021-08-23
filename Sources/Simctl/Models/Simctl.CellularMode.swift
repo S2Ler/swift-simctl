@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public extension Simctl {
   enum CellularMode: ShellArgumentConvertible {
@@ -7,7 +8,7 @@ public extension Simctl {
     case failed
     case active
 
-    var shellArgument: String {
+    public var shellArgument: String {
       switch self {
       case .notSupported:
         return "notSupported"
