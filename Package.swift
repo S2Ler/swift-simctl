@@ -1,11 +1,11 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 
 import PackageDescription
 
 let package = Package(
   name: "swift-simctl",
   platforms: [
-    .macOS(.v11),
+    .macOS(.v12),
   ],
   products: [
     .library(
@@ -14,12 +14,14 @@ let package = Package(
     ),
   ],
   dependencies: [
-
+    .package(url: "https://github.com/S2Ler/swift-shell.git", .branch("master")),
   ],
   targets: [
     .target(
       name: "Simctl",
-      dependencies: []
+      dependencies: [
+        .product(name: "Shell", package: "swift-shell"),
+      ]
     ),
     .testTarget(
       name: "SimctlTests",

@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public extension Simctl {
   enum CellularBars: ShellArgumentConvertible {
@@ -8,7 +9,7 @@ public extension Simctl {
     case three
     case four
 
-    var shellArgument: String {
+    public var shellArgument: String {
       switch self {
       case .zero:
         return "0"

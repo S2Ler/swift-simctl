@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public extension Simctl {
   enum BatteryState: ShellArgumentConvertible {
@@ -6,7 +7,7 @@ public extension Simctl {
     case charged
     case discharging
 
-    var shellArgument: String {
+    public var shellArgument: String {
       switch self {
       case .charging:
         return "charging"

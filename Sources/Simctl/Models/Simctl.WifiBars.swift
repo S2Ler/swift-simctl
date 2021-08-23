@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public extension Simctl {
   enum WiFiBars: ShellArgumentConvertible {
@@ -7,7 +8,7 @@ public extension Simctl {
     case two
     case three
 
-    var shellArgument: String {
+    public var shellArgument: String {
       switch self {
       case .zero:
         return "0"

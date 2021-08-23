@@ -1,4 +1,5 @@
 import Foundation
+import Shell
 
 public extension Simctl {
   struct Device: Codable, Equatable {
@@ -53,7 +54,7 @@ public extension Simctl {
 }
 
 extension Simctl.Device: ShellArgumentConvertible {
-  var shellArgument: String { udid.rawValue }
+  public var shellArgument: String { udid.rawValue }
 }
 
 extension Simctl.Device: Identifiable {
